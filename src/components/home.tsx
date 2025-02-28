@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import EmojiHeader from "./EmojiHeader";
 import EmojiGrid from "./EmojiGrid";
+import EmojiTextfield from "./EmojiTextfield";
 import { Toaster } from "./ui/toaster";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
@@ -10,6 +11,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("smileys");
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [emojiCollection, setEmojiCollection] = useState("");
   const { theme, setTheme } = useTheme();
 
   const handleSearch = (term: string) => {
@@ -26,6 +28,10 @@ const Home = () => {
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  const handleAddEmoji = (emoji: string) => {
+    setEmojiCollection((prev) => prev + emoji);
   };
 
   return (
@@ -53,11 +59,16 @@ const Home = () => {
             showAllCategories={showAllCategories}
             onToggleView={toggleView}
           />
+          <EmojiTextfield
+            initialContent={emojiCollection}
+            key={emojiCollection}
+          />
           <EmojiGrid
             searchTerm={searchTerm}
             selectedCategory={selectedCategory}
             onCategorySelect={handleCategorySelect}
             showAllCategories={showAllCategories}
+            onAddEmoji={handleAddEmoji}
           />
         </div>
       </div>

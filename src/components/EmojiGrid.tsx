@@ -9,6 +9,7 @@ interface EmojiGridProps {
   selectedCategory?: string;
   onCategorySelect?: (category: string) => void;
   showAllCategories?: boolean;
+  onAddEmoji?: (emoji: string) => void;
 }
 
 const EmojiGrid = ({
@@ -16,6 +17,7 @@ const EmojiGrid = ({
   selectedCategory = "smileys",
   onCategorySelect = () => {},
   showAllCategories = false,
+  onAddEmoji,
 }: EmojiGridProps) => {
   // Filter emojis based on search term and selected category
   const filteredEmojis = emojis.filter((emoji) => {
@@ -80,6 +82,7 @@ const EmojiGrid = ({
                           emoji={emoji.emoji}
                           name={emoji.name}
                           platforms={emoji.platforms}
+                          onAddEmoji={onAddEmoji}
                         />
                       </div>
                     ))}
@@ -126,6 +129,7 @@ const EmojiGrid = ({
                         emoji={emoji.emoji}
                         name={emoji.name}
                         platforms={emoji.platforms}
+                        onAddEmoji={onAddEmoji}
                       />
                     </div>
                   ))}

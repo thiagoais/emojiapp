@@ -7,59 +7,63 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { Facebook, Twitter, Copy } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useToast } from "./ui/use-toast";
 
 interface EmojiItemProps {
   emoji?: string;
   name?: string;
   platforms?: Array<"facebook" | "twitter" | "unicode">;
+  onAddEmoji?: (emoji: string) => void;
 }
 
 const EmojiItem = ({
   emoji = "😊",
   name = "smiling face",
   platforms = ["facebook", "twitter", "unicode"],
+  onAddEmoji = () => {},
 }: EmojiItemProps) => {
   const { toast } = useToast();
 
-  const handleCopy = (platform: string) => {
-    navigator.clipboard.writeText(emoji).then(() => {
-      toast({
-        title: "Copied!",
-        description: `${emoji} copied in ${platform} format`,
-        duration: 2000,
-      });
+  const handleAddEmoji = () => {
+    onAddEmoji(emoji);
+    toast({
+      title: "Added!",
+      description: `${emoji} added to collection`,
+      duration: 2000,
     });
   };
 
   return (
-    <Card className="w-[100px] h-auto bg-card p-4 flex flex-col items-center justify-between transition-all hover:shadow-lg cursor-pointer group">
-      <div className="text-4xl mb-2 transition-transform group-hover:scale-110 hover:animate-bounce">
+    <Card className="w-[100px] h-auto bg-card p-4 flex flex-col items-center justify-between transition-all hover:shadow-lg cursor-pointer group hover:bg-primary/5">
+      <div
+        className="text-4xl mb-2 transition-transform group-hover:scale-110 hover:animate-bounce"
+        onClick={handleAddEmoji}
+      >
         {emoji}
       </div>
 
-      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="text-xs text-muted-foreground w-full text-center mb-2 overflow-hidden text-ellipsis">
+        {name}
+      </div>
+
+      <div className="opacity-0 group-hover:opacity-100 transition-opacity">
         <TooltipProvider>
-          {platforms.map((platform) => (
-            <Tooltip key={platform}>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-6 w-6"
-                  onClick={() => handleCopy(platform)}
-                >
-                  {platform === "facebook" && <Facebook className="h-4 w-4" />}
-                  {platform === "twitter" && <Twitter className="h-4 w-4" />}
-                  {platform === "unicode" && <Copy className="h-4 w-4" />}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Copy {platform} format</p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1"
+                onClick={handleAddEmoji}
+              >
+                <Plus className="h-4 w-4" /> Add
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Add to collection</p>
+            </TooltipContent>
+          </Tooltip>
         </TooltipProvider>
       </div>
     </Card>
