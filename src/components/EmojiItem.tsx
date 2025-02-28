@@ -35,7 +35,7 @@ const EmojiItem = ({
   };
 
   return (
-    <Card className="w-[100px] h-auto bg-card p-4 flex flex-col items-center justify-between transition-all hover:shadow-lg cursor-pointer group hover:bg-primary/5">
+    <Card className="w-full max-w-[80px] sm:max-w-[100px] h-auto bg-card p-2 sm:p-4 flex flex-col items-center justify-between transition-all hover:shadow-lg cursor-pointer group hover:bg-primary/5">
       <div
         className="text-4xl mb-2 transition-transform group-hover:scale-110 hover:animate-bounce"
         onClick={handleAddEmoji}

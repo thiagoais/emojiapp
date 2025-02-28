@@ -3,6 +3,7 @@ import EmojiHeader from "./EmojiHeader";
 import EmojiGrid from "./EmojiGrid";
 import EmojiTextfield from "./EmojiTextfield";
 import { Toaster } from "./ui/toaster";
+import { Textarea } from "./ui/textarea";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { useTheme } from "@/lib/theme-provider";
@@ -36,21 +37,55 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-foreground text-center animate-fadeIn">
-            Emoji Selector & Copier
+      <div className="max-w-7xl mx-auto py-2 px-2 sm:px-4 lg:px-6">
+        <div className="flex justify-between items-center mb-2">
+          <h1 className="text-xl sm:text-2xl font-bold text-foreground animate-fadeIn">
+            Emoji Selector
           </h1>
           <Button variant="outline" size="icon" onClick={toggleTheme}>
             {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
+              <Sun className="h-4 w-4" />
             ) : (
-              <Moon className="h-5 w-5" />
+              <Moon className="h-4 w-4" />
             )}
           </Button>
         </div>
 
-        <div className="space-y-6">
+        <div className="flex flex-col space-y-2">
+          {/* Collection at the top */}
+          <div className="w-full bg-card border rounded-lg p-2 shadow-sm">
+            <div className="flex items-center justify-between mb-1">
+              <h3 className="text-sm font-medium flex items-center gap-1">
+                <span className="text-base">📋</span> Collection
+              </h3>
+              <div className="flex gap-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => setEmojiCollection("")}
+                >
+                  Clear
+                </Button>
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="h-7 px-2 text-xs"
+                  onClick={() => navigator.clipboard.writeText(emojiCollection)}
+                >
+                  Copy
+                </Button>
+              </div>
+            </div>
+            <Textarea
+              value={emojiCollection}
+              onChange={(e) => setEmojiCollection(e.target.value)}
+              className="min-h-[40px] text-lg resize-none"
+              placeholder="Your emojis will appear here..."
+            />
+          </div>
+
+          {/* Search and categories */}
           <EmojiHeader
             onSearch={handleSearch}
             onCategorySelect={handleCategorySelect}
@@ -59,17 +94,17 @@ const Home = () => {
             showAllCategories={showAllCategories}
             onToggleView={toggleView}
           />
-          <EmojiTextfield
-            initialContent={emojiCollection}
-            key={emojiCollection}
-          />
-          <EmojiGrid
-            searchTerm={searchTerm}
-            selectedCategory={selectedCategory}
-            onCategorySelect={handleCategorySelect}
-            showAllCategories={showAllCategories}
-            onAddEmoji={handleAddEmoji}
-          />
+
+          {/* Emoji grid */}
+          <div className="mt-1">
+            <EmojiGrid
+              searchTerm={searchTerm}
+              selectedCategory={selectedCategory}
+              onCategorySelect={handleCategorySelect}
+              showAllCategories={showAllCategories}
+              onAddEmoji={handleAddEmoji}
+            />
+          </div>
         </div>
       </div>
       <Toaster />

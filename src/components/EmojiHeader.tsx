@@ -23,8 +23,8 @@ const EmojiHeader = ({
   onToggleView = () => {},
 }: EmojiHeaderProps) => {
   return (
-    <div className="w-full bg-card border-b p-4 sticky top-0 z-10">
-      <div className="max-w-7xl mx-auto space-y-4">
+    <div className="w-full bg-card border-b p-2 sticky top-0 z-10 rounded-t-lg">
+      <div className="max-w-7xl mx-auto space-y-2">
         {/* Search Bar */}
         <div className="relative flex items-center">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -48,8 +48,13 @@ const EmojiHeader = ({
 
         {/* View Toggle Button */}
         <div className="flex justify-between items-center">
-          <Button variant="outline" onClick={onToggleView} className="mb-2">
-            {showAllCategories ? "Show Tabs View" : "Show All Categories"}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onToggleView}
+            className="mb-1 text-xs h-7 px-2"
+          >
+            {showAllCategories ? "Tabs View" : "All Categories"}
           </Button>
         </div>
 

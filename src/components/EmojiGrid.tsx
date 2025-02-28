@@ -17,7 +17,7 @@ const EmojiGrid = ({
   selectedCategory = "smileys",
   onCategorySelect = () => {},
   showAllCategories = false,
-  onAddEmoji,
+  onAddEmoji = () => {},
 }: EmojiGridProps) => {
   // Filter emojis based on search term and selected category
   const filteredEmojis = emojis.filter((emoji) => {
@@ -45,7 +45,7 @@ const EmojiGrid = ({
 
   if (showAllCategories) {
     return (
-      <ScrollArea className="w-full h-[700px] bg-muted/30 rounded-lg p-4">
+      <ScrollArea className="w-full h-[500px] sm:h-[600px] bg-muted/30 rounded-b-lg p-2 sm:p-3">
         {filteredEmojis.length > 0 ? (
           <div className="space-y-8">
             {emojiCategories.map((category) => {
@@ -67,7 +67,7 @@ const EmojiGrid = ({
                     <span className="mr-2">{category.icon}</span>
                     {category.name}
                   </h2>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 sm:gap-4">
                     {categoryEmojis.map((emoji, index) => (
                       <div
                         key={`${emoji.emoji}-${index}`}
@@ -110,9 +110,9 @@ const EmojiGrid = ({
     >
       {emojiCategories.map((category) => (
         <TabsContent key={category.id} value={category.id} className="mt-0">
-          <ScrollArea className="w-full h-[700px] bg-muted/30 rounded-lg p-4">
+          <ScrollArea className="w-full h-[500px] sm:h-[600px] bg-muted/30 rounded-b-lg p-2 sm:p-3">
             {filteredEmojis.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-4 p-4">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-2 sm:gap-4 p-2 sm:p-4">
                 {filteredEmojis
                   .filter((emoji) => emoji.category === category.id)
                   .map((emoji, index) => (

@@ -55,7 +55,7 @@ const EmojiTextfield = ({ initialContent = "" }: EmojiTextfieldProps) => {
   };
 
   return (
-    <div className="w-full bg-card border rounded-lg p-4 space-y-4 shadow-md transition-all duration-300 hover:shadow-lg">
+    <div className="w-full h-full bg-card border rounded-lg p-3 space-y-3 shadow-md transition-all duration-300 hover:shadow-lg">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <h3 className="text-lg font-medium flex items-center gap-2">
           <span className="text-xl">📋</span> Your Emoji Collection
@@ -116,7 +116,7 @@ const EmojiTextfield = ({ initialContent = "" }: EmojiTextfieldProps) => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Your emojis will appear here..."
-            className="min-h-[100px] text-lg"
+            className="min-h-[400px] text-lg"
           />
         </TabsContent>
       </Tabs>
