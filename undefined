@@ -1,0 +1,7 @@
+import Home from "@/components/home";
+
+const Storyboard = () => {
+  return <Home />;
+};
+
+export default Storyboard;
