@@ -51,7 +51,6 @@ const EmojiItem = ({
                 variant="outline"
                 size="sm"
                 className="flex items-center gap-1"
-                onClick={handleAddEmoji}
               >
                 <Plus className="h-4 w-4" /> Add
               </Button>
