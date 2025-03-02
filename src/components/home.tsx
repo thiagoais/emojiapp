@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import EmojiHeader from "./EmojiHeader";
 import EmojiGrid from "./EmojiGrid";
 import EmojiTextfield from "./EmojiTextfield";
+import SEOContent from "./SEOContent";
 import { Toaster } from "./ui/toaster";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
@@ -80,6 +81,7 @@ const Home = () => {
         </div>
       </div>
       <Toaster />
+      <SEOContent />
     </div>
   );
 };

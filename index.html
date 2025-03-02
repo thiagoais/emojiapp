@@ -5,61 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO Meta Tags -->
-    <title>Emoji Party | Fast and Modern Web App</title>
+    <title>Emoji Party 🥳 | Copy and Paste Your Favorite Emojis</title>
     <meta
       name="description"
-      content="Build blazing-fast web applications with Vite, React, and TypeScript. Enjoy instant hot module replacement and optimized performance."
+      content="Easily find, select, and copy all the emojis you need with Emoji Party! 🥳 Perfect for social media, messaging, and more."
     />
     <meta
       name="keywords"
-      content="Vite, React, TypeScript, Web Development, JavaScript, Frontend, Modern Web, Performance"
+      content="emoji, copy emoji, paste emoji, emoji picker, emoji keyboard, emoji tool, smileys, symbols, Unicode, text symbols"
     />
-    <meta name="author" content="Your Name or Company" />
+    <meta name="author" content="Emoji Party" />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffcc00" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Emoji Party | Fast and Modern Web App" />
+    <meta
+      property="og:title"
+      content="Emoji Party 🥳 | Copy and Paste Your Favorite Emojis"
+    />
     <meta
       property="og:description"
-      content="Build blazing-fast web applications with Vite, React, and TypeScript."
+      content="Easily find, select, and copy all the emojis you need with Emoji Party! 🎉"
     />
-    <meta property="og:image" content="https://yourwebsite.com/og-image.jpg" />
-    <meta property="og:url" content="https://yourwebsite.com" />
-    <meta property="og:site_name" content="Your Website Name" />
+    <meta
+      property="og:image"
+      content="https://magicgenie.site/emojiparty/logo_smile_32x32"
+    />
+    <meta property="og:url" content="https://magicgenie.site/emojiparty/" />
+    <meta property="og:site_name" content="Emoji Party" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Emoji Party | Fast and Modern Web App"
+      content="Emoji Party 🥳 | Copy and Paste Emojis Instantly"
     />
     <meta
       name="twitter:description"
-      content="Build blazing-fast web applications with Vite, React, and TypeScript."
+      content="Find and copy emojis easily with Emoji Party! The fastest emoji picker for social media, chat, and more. 🚀"
     />
     <meta
       name="twitter:image"
-      content="https://yourwebsite.com/twitter-image.jpg"
+      content="https://magicgenie.site/emojiparty/logo_smile_32x32"
     />
-    <meta name="twitter:site" content="@YourTwitterHandle" />
+    <meta name="twitter:site" content="@EmojiPartyApp" />
 
     <!-- Favicon and Apple Touch Icon -->
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" href="/logo_smile_32x32.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/logo_smile_170x170.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/logo_smile_32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/logo_smile_16x16.png"
+    />
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://yourwebsite.com" />
+    <link rel="canonical" href="https://magicgenie.site/emojiparty/" />
 
     <!-- Preload key assets -->
     <link rel="preload" href="/src/main.tsx" as="script" />
-    <link rel="preconnect" href="https://api.tempolabs.ai" />
     <link rel="dns-prefetch" href="https://storage.googleapis.com" />
+
+    <!-- Additional Performance Boost -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="preload"
+      href="/fonts/emoji-font.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-WBT0306R6Z"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-WBT0306R6Z");
+  </script>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
