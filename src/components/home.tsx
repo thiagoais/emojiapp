@@ -3,7 +3,6 @@ import EmojiHeader from "./EmojiHeader";
 import EmojiGrid from "./EmojiGrid";
 import EmojiTextfield from "./EmojiTextfield";
 import { Toaster } from "./ui/toaster";
-import { Textarea } from "./ui/textarea";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
 import { useTheme } from "@/lib/theme-provider";
@@ -52,38 +51,11 @@ const Home = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          {/* Collection at the top */}
-          <div className="w-full bg-card border rounded-lg p-2 shadow-sm">
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="text-sm font-medium flex items-center gap-1">
-                <span className="text-base">📋</span> Collection
-              </h3>
-              <div className="flex gap-1">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-7 px-2 text-xs"
-                  onClick={() => setEmojiCollection("")}
-                >
-                  Clear
-                </Button>
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="h-7 px-2 text-xs"
-                  onClick={() => navigator.clipboard.writeText(emojiCollection)}
-                >
-                  Copy
-                </Button>
-              </div>
-            </div>
-            <Textarea
-              value={emojiCollection}
-              onChange={(e) => setEmojiCollection(e.target.value)}
-              className="min-h-[40px] text-lg resize-none"
-              placeholder="Your emojis will appear here..."
-            />
-          </div>
+          {/* Pass the emojiCollection state and setter to EmojiTextfield */}
+          <EmojiTextfield
+            value={emojiCollection}
+            onChange={setEmojiCollection}
+          />
 
           {/* Search and categories */}
           <EmojiHeader

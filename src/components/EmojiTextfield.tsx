@@ -1,125 +1,101 @@
 import React, { useState, useEffect } from "react";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { Copy, Check, Facebook, Twitter, FileText } from "lucide-react";
+import { Copy, Trash } from "lucide-react";
 import { useToast } from "./ui/use-toast";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
 interface EmojiTextfieldProps {
   initialContent?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-type Platform = "facebook" | "twitter" | "unicode";
-
-const EmojiTextfield = ({ initialContent = "" }: EmojiTextfieldProps) => {
+const EmojiTextfield = ({
+  initialContent = "",
+  value,
+  onChange,
+}: EmojiTextfieldProps) => {
+  // Use either controlled (value/onChange) or uncontrolled (internal state) pattern
+  const isControlled = value !== undefined && onChange !== undefined;
   const [content, setContent] = useState(initialContent);
   const [copied, setCopied] = useState(false);
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform>("unicode");
   const { toast } = useToast();
 
-  // Update content when initialContent changes
+  // Update content when initialContent changes (for uncontrolled mode)
   useEffect(() => {
-    setContent(initialContent);
-  }, [initialContent]);
+    if (!isControlled) {
+      setContent(initialContent);
+    }
+  }, [initialContent, isControlled]);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(content).then(() => {
+    const textToCopy = isControlled ? value : content;
+    navigator.clipboard.writeText(textToCopy || "").then(() => {
       setCopied(true);
       toast({
         title: "Copied!",
-        description: `Emoji text copied to clipboard for ${selectedPlatform}`,
+        description: "Emoji text copied to clipboard",
         duration: 2000,
       });
       setTimeout(() => setCopied(false), 2000);
     });
   };
 
-  const addEmoji = (emoji: string) => {
-    setContent((prev) => prev + emoji);
-  };
-
   const clearContent = () => {
-    setContent("");
+    if (isControlled) {
+      onChange?.("");
+    } else {
+      setContent("");
+    }
+    toast({
+      title: "Cleared!",
+      description: "Emoji collection has been cleared",
+      duration: 2000,
+    });
   };
 
-  const getPlatformIcon = (platform: Platform) => {
-    switch (platform) {
-      case "facebook":
-        return <Facebook className="h-4 w-4" />;
-      case "twitter":
-        return <Twitter className="h-4 w-4" />;
-      case "unicode":
-      default:
-        return <FileText className="h-4 w-4" />;
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (isControlled) {
+      onChange?.(e.target.value);
+    } else {
+      setContent(e.target.value);
     }
   };
 
   return (
     <div className="w-full h-full bg-card border rounded-lg p-3 space-y-3 shadow-md transition-all duration-300 hover:shadow-lg">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h3 className="text-lg font-medium flex items-center gap-2">
-          <span className="text-xl">📋</span> Your Emoji Collection
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          <Button variant="outline" size="sm" onClick={clearContent}>
-            Clear
-          </Button>
-          <Button
-            variant="default"
-            size="sm"
-            className="flex items-center gap-1"
-            onClick={handleCopy}
-          >
-            {copied ? (
-              <Check className="h-4 w-4" />
-            ) : (
-              <Copy className="h-4 w-4" />
-            )}
-            {copied ? "Copied!" : "Copy"}
-          </Button>
-        </div>
-      </div>
-
-      <Tabs
-        defaultValue="unicode"
-        value={selectedPlatform}
-        onValueChange={(value) => setSelectedPlatform(value as Platform)}
-        className="w-full"
-      >
-        <TabsList className="grid grid-cols-3 mb-4">
-          <TabsTrigger value="unicode" className="flex items-center gap-2">
-            <FileText className="h-4 w-4" /> Unicode
-          </TabsTrigger>
-          <TabsTrigger value="facebook" className="flex items-center gap-2">
-            <Facebook className="h-4 w-4" /> Facebook
-          </TabsTrigger>
-          <TabsTrigger value="twitter" className="flex items-center gap-2">
-            <Twitter className="h-4 w-4" /> Twitter
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value={selectedPlatform} className="mt-0">
-          <div className="bg-muted/20 p-2 rounded-md mb-2 text-sm">
-            <p className="flex items-center gap-2">
-              {getPlatformIcon(selectedPlatform)}
-              <span>
-                Copying for{" "}
-                <span className="font-semibold capitalize">
-                  {selectedPlatform}
-                </span>{" "}
-                format
-              </span>
-            </p>
+      <div className="w-full bg-card border rounded-lg p-2 shadow-sm">
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-sm font-medium flex items-center gap-1">
+            <span className="text-base">📋</span> Collection
+          </h3>
+          <div className="flex gap-1">
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-7 px-2 text-xs"
+              onClick={clearContent}
+            >
+              <Trash className="h-3.5 w-3.5 mr-1" /> Clear
+            </Button>
+            <Button
+              variant="default"
+              size="sm"
+              className="h-7 px-2 text-xs"
+              onClick={handleCopy}
+            >
+              <Copy className="h-3.5 w-3.5 mr-1" />
+              Copy
+            </Button>
           </div>
-
-          <Textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Your emojis will appear here..."
-            className="min-h-[400px] text-lg"
-          />
-        </TabsContent>
-      </Tabs>
+        </div>
+        <Textarea
+          value={isControlled ? value : content}
+          onChange={handleChange}
+          className="min-h-[40px] text-lg resize-none"
+          placeholder="Your emojis will appear here..."
+        />
+      </div>
     </div>
   );
 };
